@@ -1,10 +1,13 @@
 #!/bin/bash
+
 # macOS
 # run the script to toggle low power mode
-LOW_POWER_MODE=`pmset -g | sed -n "14p" | grep -o "[01]"`
-if [ $LOW_POWER_MODE == "1" ]
+
+CURRENT_MODE=$(pmset -g | grep "lowpowermode" | awk '{print $2}')
+
+if [ $CURRENT_MODE == "1" ]
 then
-	pmset -a lowpowermode 0
+	sudo pmset -a lowpowermode 0
 else
-	pmset -a lowpowermode 1
+	sudo pmset -a lowpowermode 1
 fi
